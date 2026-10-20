@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>De Financiële Markt</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Al het financiële nieuws op één lijst, elk half uur bijgewerkt. Pas bevestigd als twee onafhankelijke redacties het melden.">
+<meta name="theme-color" content="#0f2742">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Ccircle cx='17' cy='17' r='16' fill='%230f2742'/%3E%3Ccircle cx='17' cy='17' r='12' fill='%23fff'/%3E%3Cpath d='M17 11l4.3 3.1-1.6 5h-5.4l-1.6-5z' fill='%23111a14'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: grasveld als kopband, sticky balk met weergave + Mijn feed, links filterkolom (mobiel lade), rechts de feed */
+:root{
+  --pitch:#0f2742; --pitch-2:#163556; --pitch-line:rgba(255,255,255,.5); --chalk:#ffffff; --grid:rgba(255,255,255,.07); --up:#3ddc84;
+  --bg:#eef1f5; --surface:#ffffff; --ink:#0f1a2a; --muted:#5d6878; --line:#dce2ea; --hover:#f3f6fa;
+  --accent:#1c4fbf; --accent-ink:#ffffff; --accent-soft:#e3ebfb; --star:#d99a00;
+  --t-uitslag:#16602e; --t-transfer:#1d4ed8; --t-blessure:#c0262d; --t-gerucht:#b45309; --t-vooruit:#6d28d9; --t-jubileum:#a16207; --t-trainer:#0f766e; --t-overig:#4b5563;
+  --ok:#16602e; --ok-bg:#e2f1e6; --warn:#a14a07; --warn-bg:#fcefdf; --new:#e0461b; --shade:rgba(10,20,14,.45);
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --pitch:#0b1d33; --pitch-2:#10263f; --pitch-line:rgba(255,255,255,.4); --grid:rgba(255,255,255,.06);
+  --bg:#0b0f16; --surface:#131a24; --ink:#e5eaf2; --muted:#93a0b2; --line:#243041; --hover:#18212d;
+  --accent:#7ea6ff; --accent-ink:#0b0f16; --accent-soft:#17243d; --star:#f5c542;
+  --t-uitslag:#5fd388; --t-transfer:#8fb0ff; --t-blessure:#ff7b7f; --t-gerucht:#f3b25c; --t-vooruit:#c4a6ff; --t-jubileum:#e8c35a; --t-trainer:#5ed0c2; --t-overig:#a3adb7;
+  --ok:#5fd388; --ok-bg:#15301f; --warn:#f3b25c; --warn-bg:#33240f; --new:#ff8150; --shade:rgba(0,0,0,.6);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --pitch:#0b1d33; --pitch-2:#10263f; --pitch-line:rgba(255,255,255,.4); --grid:rgba(255,255,255,.06);
+  --bg:#0b0f16; --surface:#131a24; --ink:#e5eaf2; --muted:#93a0b2; --line:#243041; --hover:#18212d;
+  --accent:#7ea6ff; --accent-ink:#0b0f16; --accent-soft:#17243d; --star:#f5c542;
+  --t-uitslag:#5fd388; --t-transfer:#8fb0ff; --t-blessure:#ff7b7f; --t-gerucht:#f3b25c; --t-vooruit:#c4a6ff; --t-jubileum:#e8c35a; --t-trainer:#5ed0c2; --t-overig:#a3adb7;
+  --ok:#5fd388; --ok-bg:#15301f; --warn:#f3b25c; --warn-bg:#33240f; --new:#ff8150; --shade:rgba(0,0,0,.6);
+  color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45}
+button{font-family:inherit}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---- grasveld ---- */
+.pitch{position:relative;overflow:hidden;color:var(--chalk);background:linear-gradient(var(--grid) 1px,transparent 1px) 0 0/100% 26px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/52px 100%,linear-gradient(160deg,var(--pitch),var(--pitch-2))}
+.pitch .chart{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.pitch .chart polyline{fill:none;stroke:var(--up);stroke-width:2;opacity:.55;vector-effect:non-scaling-stroke}
+.pitch .chart polygon{fill:var(--up);opacity:.08}
+.pitch-inner{position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:22px 18px}
+.logo{display:flex;align-items:center;gap:10px;margin:0;font-family:var(--f-display);font-weight:800;font-style:italic;font-size:34px;line-height:1;letter-spacing:.01em;text-transform:uppercase}
+.logo svg{flex:none}
+.home{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none}
+.home:hover small{opacity:1}
+.home:focus-visible{outline-color:var(--chalk)}
+.logo small{display:block;font:500 13px var(--f-body);font-style:normal;text-transform:none;letter-spacing:0;opacity:.85;margin-top:4px}
+.board{display:flex;gap:2px;font-family:var(--f-mono);font-size:12px;font-variant-numeric:tabular-nums;background:rgba(0,0,0,.28);border-radius:6px;overflow:hidden}
+.board div{padding:7px 11px;display:flex;flex-direction:column;gap:1px;background:rgba(0,0,0,.18)}
+.board span{opacity:.7;font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-family:var(--f-body);font-weight:600}
+.board b{font-weight:500;font-size:15px}
+
+/* ---- balk ---- */
+.bar{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar-inner{display:flex;gap:10px;align-items:center;padding-block:10px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:none}
+.seg button{font-weight:600;font-size:13px;color:var(--muted);background:transparent;border:none;padding:7px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.search{flex:1 1 160px;min-width:0;font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid transparent;border-radius:8px;padding:7px 11px}
+.search:focus{border-color:var(--line);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn .n{font-family:var(--f-mono);font-size:11px;font-weight:500;background:var(--bg);color:var(--ink);border-radius:999px;padding:0 6px}
+.btn.primary .n{background:rgba(255,255,255,.22);color:inherit}
+.mine-btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.mine-btn svg{fill:var(--star)}
+.mine-btn[aria-pressed="true"] svg{fill:currentColor}
+.filters-btn{display:none}
+.mine-wrap{position:relative;margin-left:auto;flex:none;display:flex;gap:0}
+.mine-wrap .btn{border-radius:8px 0 0 8px}
+.mine-wrap .caret{border-radius:0 8px 8px 0;border-left:none;padding:7px 8px}
+.mine-wrap .mine-btn[aria-pressed="true"]+.caret{border-color:var(--accent);background:var(--accent);color:var(--accent-ink)}
+
+.pop{position:absolute;right:0;top:calc(100% + 8px);width:min(360px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(0,0,0,.18);padding:16px;display:flex;flex-direction:column;gap:12px;z-index:30}
+.pop h3{margin:0;font-family:var(--f-display);font-weight:700;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+.pop p{margin:0;font-size:13px;color:var(--muted)}
+.pop .favs{display:flex;flex-wrap:wrap;gap:6px}
+.pop .quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.pop .quick button{text-align:left;font-size:13px;font-weight:500;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 10px;cursor:pointer}
+.pop .quick button:hover{border-color:var(--accent)}
+.linkbox{display:flex;gap:6px;min-width:0}
+.linkbox input{flex:1;min-width:0;font:12px var(--f-mono);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 8px}
+.pop .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---- tag-chips ---- */
+.tagchip{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--ink);background:var(--accent-soft);border:1px solid transparent;border-radius:6px;padding:4px 6px 4px 10px}
+.tagchip .k{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.tagchip button{display:grid;place-items:center;width:18px;height:18px;border:none;border-radius:4px;background:transparent;color:var(--muted);cursor:pointer;font-size:15px;line-height:1}
+.tagchip button:hover{background:var(--surface);color:var(--ink)}
+
+/* ---- layout ---- */
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start;padding-block:20px 48px}
+aside{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.side-head{display:none}
+.side-scroll{padding:0 0 10px}
+.kwform{display:flex;gap:6px;margin:0 12px 6px}
+.kwform input{flex:1;min-width:0;font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid transparent;border-radius:7px;padding:6px 9px}
+.kwform input:focus{border-color:var(--line);background:var(--surface)}
+.kwform button{flex:none;font-weight:600;font-size:13px;color:var(--accent-ink);background:var(--accent);border:none;border-radius:7px;padding:6px 11px;cursor:pointer}
+.kwhint{margin:0 14px 6px;font-size:12px;color:var(--muted)}
+.rm{flex:none;width:28px;height:28px;display:grid;place-items:center;border:none;background:none;border-radius:6px;color:var(--muted);cursor:pointer;font-size:17px;line-height:1}
+.rm:hover{background:var(--line);color:var(--ink)}
+.blk{padding:12px 0 6px}
+.blk+.blk{border-top:1px solid var(--line)}
+.blk.favs-blk{background:var(--accent-soft)}
+.blk .sec-h{padding:0 14px 8px}
+.bsearch{position:relative;margin:0 12px 6px}
+.bsearch input{width:100%;font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid transparent;border-radius:7px;padding:6px 9px 6px 29px}
+.bsearch input:focus{border-color:var(--line);background:var(--surface)}
+.bsearch svg{position:absolute;left:10px;top:50%;margin-top:-7px;fill:none;stroke:var(--muted);stroke-width:2}
+.opt .pick .sub{font-size:12px;color:var(--muted);font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:0 1 auto}
+.noresult{padding:6px 14px;font-size:13px;color:var(--muted)}
+.toast button{margin-left:12px;background:none;border:none;color:inherit;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
+.sec{padding:8px 0 4px}
+.sec+.sec{border-top:1px solid var(--line)}
+.sec-h{display:flex;align-items:center;justify-content:space-between;padding:4px 14px 6px}
+.sec-h h3{margin:0;font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sec-h button{font-size:12px;color:var(--muted);background:none;border:none;cursor:pointer;padding:0}
+.sec-h button:hover{color:var(--ink)}
+ul.opts{list-style:none;margin:0;padding:0}
+.opt{display:flex;align-items:center;gap:2px;padding:0 6px 0 8px}
+.opt:hover{background:var(--hover)}
+.opt .pick{flex:1;min-width:0;display:flex;align-items:center;gap:9px;padding:6px 6px;background:none;border:none;color:var(--ink);font-size:14px;text-align:left;cursor:pointer}
+.opt .pick span.l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:0 0 auto;max-width:100%}
+.opt .pick small{margin-left:auto;font-size:11px;color:var(--muted);font-family:var(--f-mono);flex:none}
+.box2{flex:none;width:16px;height:16px;border:1.5px solid var(--muted);border-radius:4px;display:grid;place-items:center}
+.opt.on .box2{background:var(--accent);border-color:var(--accent)}
+.opt.on .box2::after{content:"";width:8px;height:4px;border:2px solid var(--accent-ink);border-top:none;border-right:none;transform:rotate(-45deg) translate(1px,-1px)}
+.opt.on .pick{font-weight:600}
+.star{flex:none;display:grid;place-items:center;width:28px;height:28px;border:none;background:none;border-radius:6px;cursor:pointer;color:var(--line)}
+.star svg{width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:1.6;opacity:.45}
+.opt:hover .star svg,.star:focus-visible svg{opacity:1}
+.star[aria-pressed="true"] svg{fill:var(--star);stroke:var(--star);opacity:1}
+.exp{flex:none;width:26px;height:28px;display:grid;place-items:center;background:none;border:none;border-radius:6px;color:var(--muted);cursor:pointer}
+.exp:hover{background:var(--line)}
+.exp svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;transition:transform .15s}
+.exp[aria-expanded="true"] svg{transform:rotate(90deg)}
+ul.sub{list-style:none;margin:0 0 6px;padding:0 0 0 22px;border-left:1px solid var(--line);margin-left:20px}
+.more{display:block;margin:2px 14px 0;font-size:12px;color:var(--accent);background:none;border:none;padding:4px 0;cursor:pointer;font-weight:600}
+
+/* ---- feed ---- */
+.feedhead{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.fh-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.feedhead h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:.02em;text-wrap:balance}
+.summary{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.summary b{color:var(--ink);font-weight:600}
+.active{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.linkbtn{font-size:13px;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 2px;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--ink)}
+.savefav{font-size:13px;font-weight:600;color:var(--accent);background:none;border:none;cursor:pointer;padding:4px 2px;display:inline-flex;gap:5px;align-items:center}
+.savefav svg{width:14px;height:14px;fill:var(--star)}
+ol.feed{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.day{padding:7px 16px;font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--bg);border-top:1px solid var(--line)}
+.day:first-child{border-top:none}
+.row{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:4px 14px;align-items:start;padding:12px 16px;border-top:1px solid var(--line);position:relative}
+.day+.row{border-top:none}
+.row:hover{background:var(--hover)}
+.row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--tc,transparent)}
+.time{font-family:var(--f-mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.row.is-new .time{color:var(--new);font-weight:500}
+.body{min-width:0;display:flex;flex-direction:column;gap:5px}
+.tlink{color:inherit;text-decoration:none}
+.tlink:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.title{font-weight:600;font-size:15.5px;line-height:1.35;margin:0;text-wrap:pretty}
+.meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:12.5px;color:var(--muted)}
+.type{font-family:var(--f-display);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--tc)}
+.ent{background:none;border:none;padding:0;font:inherit;color:var(--muted);cursor:pointer}
+.ent:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.dot{color:var(--line)}
+.srcbtn{font:inherit;color:var(--muted);background:none;border:none;padding:0;cursor:pointer;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.srcbtn:hover{color:var(--ink)}
+.status{align-self:start;display:inline-flex;align-items:center;gap:5px;font-weight:600;font-size:12px;border-radius:4px;padding:3px 8px;white-space:nowrap}
+.status.ok{color:var(--ok);background:var(--ok-bg)}
+.status.single{color:var(--warn);background:var(--warn-bg)}
+.sources{list-style:none;margin:4px 0 0;padding:8px 12px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:5px;font-size:13px}
+.sources a{color:var(--ink);text-decoration:none;font-weight:500}
+.sources a:hover{text-decoration:underline}
+.sources span{color:var(--muted)}
+.empty{padding:40px 16px;text-align:center;color:var(--muted)}
+.empty b{display:block;color:var(--ink);margin-bottom:4px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--surface);font-size:13px;font-weight:500;padding:9px 14px;border-radius:8px;z-index:60}
+
+footer{border-top:1px solid var(--line);background:var(--surface)}
+.foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding-block:24px;font-size:13px;color:var(--muted)}
+.foot h4{margin:0 0 6px;font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
+.foot p{margin:0;max-width:60ch}
+.demo{color:var(--warn)}
+
+.scrim{position:fixed;inset:0;background:var(--shade);z-index:40}
+@media (max-width:900px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:14px;padding-top:14px}
+  .filters-btn{display:inline-flex}
+  aside{position:fixed;z-index:50;top:0;bottom:0;left:0;width:min(360px,88vw);max-height:none;border-radius:0;border:none;border-right:1px solid var(--line);transform:translateX(-102%);transition:transform .2s;padding-top:env(safe-area-inset-top,0px);padding-left:env(safe-area-inset-left,0px)}
+  aside.open{transform:none}
+  aside .side-scroll{overflow:auto;flex:1}
+  .side-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line)}
+  .side-head h2{margin:0;font-family:var(--f-display);font-weight:700;font-size:20px;text-transform:uppercase}
+  .opt .pick{padding:9px 6px}
+  .opt .star svg{opacity:1}
+}
+@media (max-width:600px){
+  .logo{font-size:28px}
+  .board{width:100%}.board div{flex:1}
+  .bar-inner{flex-wrap:wrap}
+  .search{order:5;flex-basis:100%}
+  .seg button{padding:7px 10px}
+  .mine-label{display:none}
+  .row{grid-template-columns:42px minmax(0,1fr);padding:11px 14px}
+  .status{grid-column:2;justify-self:start}
+}
+@media (prefers-reduced-motion:reduce){aside,.exp svg{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="pitch">
+  <svg class="chart" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><polygon points="0,120 0,92 60,88 120,95 180,80 240,84 300,70 360,74 420,62 480,66 540,50 600,58 660,44 720,48 780,36 840,40 900,26 960,30 1000,18 1000,120"/><polyline points="0,92 60,88 120,95 180,80 240,84 300,70 360,74 420,62 480,66 540,50 600,58 660,44 720,48 780,36 840,40 900,26 960,30 1000,18"/></svg>
+  <div class="wrap pitch-inner">
+    <h1 class="logo"><a href="/" id="home" class="home" aria-label="De Financiële Markt, naar de homepage">
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="1" width="32" height="32" rx="7" fill="#fff"/><rect x="7" y="18" width="4" height="9" rx="1" fill="#0f2742"/><rect x="15" y="12" width="4" height="15" rx="1" fill="#0f2742"/><rect x="23" y="7" width="4" height="20" rx="1" fill="#1c4fbf"/></svg>
+      <span>De Financiële Markt<small>Al het financiële nieuws, door twee bronnen bevestigd</small></span>
+    </a></h1>
+    <div class="board" aria-label="Status">
+      <div><span>Bijgewerkt</span><b id="bUpd">--:--</b></div>
+      <div><span>Volgende</span><b id="bNext">--:--</b></div>
+      <div><span>Bronnen</span><b>12</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="wrap bar-inner">
+    <button class="btn filters-btn" id="openFilters" type="button" aria-controls="side">
+      <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12M4.5 8h7M7 13h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      Filters <span class="n" id="fCount" hidden></span>
+    </button>
+    <div class="seg" role="group" aria-label="Weergave">
+      <button id="vAll" type="button" aria-pressed="true">Alles</button>
+      <button id="vOk" type="button" aria-pressed="false">Bevestigd</button>
+    </div>
+    <input type="search" class="search" id="q" placeholder="Zoek in de koppen" aria-label="Zoek in de koppen">
+    <div class="mine-wrap">
+      <button class="btn mine-btn" id="mineBtn" type="button" aria-pressed="false">
+        <svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>
+        <span class="mine-label">Mijn feed</span> <span class="n" id="favN">0</span>
+      </button>
+      <button class="btn caret" id="mineMenu" type="button" aria-expanded="false" aria-label="Mijn feed instellen">
+        <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+      </button>
+      <div class="pop" id="pop" hidden></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <aside id="side" aria-label="Filters">
+    <div class="side-head"><h2>Filters</h2><button class="btn" id="closeFilters" type="button">Klaar</button></div>
+    <div class="side-scroll" id="sideScroll"></div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <main>
+    <div class="feedhead">
+      <div class="fh-top">
+        <h2 id="feedTitle">Laatste nieuws</h2>
+        <div class="summary" id="summary"></div>
+      </div>
+      <div class="active" id="active" hidden></div>
+    </div>
+    <ol class="feed" id="feed"></ol>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div><h4>Hoe het werkt</h4><p>Elk half uur lezen we de feeds van financiële en economische redacties in Nederland en daarbuiten. Een bericht krijgt het label Bevestigd zodra minstens twee onafhankelijke redacties hetzelfde melden. Daarvoor tonen we het als 1 bron of gerucht.</p></div>
+    <div><h4>Mijn feed</h4><p>Geef bedrijven, markten, personen en onderwerpen een ster. Ze komen samen onder Mijn feed, en met je eigen link open je die feed op elk apparaat. Geen account nodig.</p></div>
+    <div><h4>Bronnen</h4><p id="aboutTxt">NOS, NU.nl, FD, IEX, De Telegraaf, RTL Nieuws, Business Insider, Reuters, Bloomberg, CNBC, Financial Times, Handelsblatt. Elke kop linkt door naar de originele artikelen. Dit is nieuws, geen beleggingsadvies.</p></div>
+  </div>
+</footer>
+
+<script>
+/* =================== catalogus =================== */
+const COMPS = [
+  {k:'AEX',n:'AEX',clubs:['ASML','Shell','Unilever','ING','Prosus','Adyen','Ahold Delhaize','Heineken','Wolters Kluwer','ABN Amro','Philips','NN Group','KPN','Aegon','ASM International','BE Semiconductor','Universal Music Group','Exor','Akzo Nobel','DSM-Firmenich','Randstad','IMCD','ArcelorMittal','ASR Nederland','Arcadis']},
+  {k:'AMX',n:'AMX (Midkap)',clubs:['Air France-KLM','PostNL','Signify','Van Lanschot Kempen','Aalberts','TKH Group','Fugro','BAM','Basic-Fit','Flow Traders','Just Eat Takeaway','Galapagos','Vopak','OCI','SBM Offshore']},
+  {k:'ASCX',n:'AScX (Smallkap)',clubs:['Accell','Brunel','ForFarmers','Sligro','Ordina','Kendrion','Heijmans','Azerion','CM.com']},
+  {k:'US',n:'Wall Street',clubs:['Nvidia','Apple','Microsoft','Alphabet','Amazon','Meta','Tesla','Booking','Berkshire Hathaway','JPMorgan','Uber','Netflix','Broadcom','AMD','Intel']},
+  {k:'EU',n:'Europese beurzen',clubs:['SAP','Siemens','Volkswagen','LVMH','TotalEnergies','Novo Nordisk','Nestlé','Lindt','HSBC','BP','Airbus','Gazprom']},
+  {k:'PRIV',n:'Niet beursgenoteerd',clubs:['Albert Heijn','Jumbo','Videoland','Viaplay','Thuisbezorgd','Schiphol','Anthropic','OpenAI','Greenwheels','Grolsch','Zabka','Sparta']},
+  {k:'CRYPTO',n:'Crypto',clubs:['Bitcoin','Ethereum','Solana']},
+  {k:'GRONDST',n:'Grondstoffen',clubs:['Olie','Goud','Gas','Diesel']},
+  {k:'VALUTA',n:'Valuta',clubs:['Euro','Dollar','Yen']},
+  {k:'RENTE',n:'Rente en obligaties',clubs:[]},
+];
+const THEMES = [
+  {k:'cijfers',n:'Kwartaalcijfers'},
+  {k:'overname',n:'Overnames en fusies'},
+  {k:'rente',n:'Rente en centrale banken'},
+  {k:'banken',n:'Banken'},
+  {k:'tech',n:'Tech en AI'},
+  {k:'energie',n:'Energie en olie'},
+  {k:'retail',n:'Retail en consument'},
+  {k:'werk',n:'Werk en arbeidsmarkt'},
+  {k:'cyber',n:'Cyberveiligheid'},
+  {k:'mobiliteit',n:'Mobiliteit en luchtvaart'},
+  {k:'wonen',n:'Wonen en hypotheken'},
+  {k:'dividend',n:'Dividend'},
+  {k:'ceo',n:'Topbestuurders'},
+  {k:'gerucht',n:'Geruchten'},
+];
+const PLAYERS = ['Donald Trump','Christine Lagarde','Olaf Sleijpen','Christophe Fouquet','Jensen Huang','Elon Musk','Warren Buffett','Sam Altman','Dario Amodei','Frans Muller','Steven van Rijswijk','Robert Swaak','Wael Sawan'];
+const QUICK = ['ASML','Shell','ING','Adyen','Ahold Delhaize','Heineken','Nvidia','Philips'];
+const TYPE_LABEL = {cijfers:'Cijfers',overname:'Overname',rente:'Rente',beleid:'Beleid',incident:'Incident',macro:'Economie',gerucht:'Gerucht',bedrijf:'Bedrijf',overig:'Nieuws'};
+const TYPE_COLOR = {cijfers:'--t-uitslag',overname:'--t-transfer',rente:'--t-vooruit',beleid:'--t-trainer',incident:'--t-blessure',macro:'--t-jubileum',gerucht:'--t-gerucht',bedrijf:'--t-overig',overig:'--t-overig'};
+const COUNTRIES = [{k:'NL',n:'Nederland'},{k:'US',n:'Verenigde Staten'},{k:'DE',n:'Duitsland'},{k:'CN',n:'China'},{k:'GB',n:'Verenigd Koninkrijk'},{k:'FR',n:'Frankrijk'},{k:'JP',n:'Japan'},{k:'CH',n:'Zwitserland'},{k:'PL',n:'Polen'},{k:'RU',n:'Rusland'},{k:'BE',n:'België'}];
+const COMP_COUNTRY = {AEX:'NL',AMX:'NL',ASCX:'NL',US:'US'};
+const CLUB_COUNTRY = {'SAP':'DE','Siemens':'DE','Volkswagen':'DE','LVMH':'FR','TotalEnergies':'FR','Airbus':'FR','Novo Nordisk':'DK','Nestlé':'CH','Lindt':'CH','HSBC':'GB','BP':'GB','Gazprom':'RU','Albert Heijn':'NL','Jumbo':'NL','Videoland':'NL','Thuisbezorgd':'NL','Schiphol':'NL','Greenwheels':'NL','Grolsch':'NL','Sparta':'NL','Zabka':'PL','Anthropic':'US','OpenAI':'US','Yen':'JP','Dollar':'US'};
+const COUNTRY_BY = Object.fromEntries(COUNTRIES.map(c=>[c.k,c]));
+const COMP_BY = Object.fromEntries(COMPS.map(c=>[c.k,c]));
+const CLUB_COMP = {}; COMPS.forEach(c=>c.clubs.forEach(cl=>CLUB_COMP[cl]=c.k));
+const THEME_BY = Object.fromEntries(THEMES.map(t=>[t.k,t]));
+const API_URL = '/api/feed';
+
+/* =================== state =================== */
+const store = {
+  get(k,d){try{const v=localStorage.getItem('fm:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('fm:'+k,JSON.stringify(v))}catch(e){}}
+};
+const state = {
+  sel:new Set(store.get('sel',[])), favs:store.get('favs',[]), kws:store.get('kws',[]), onlyOk:store.get('onlyOk',false),
+  q:'', open:new Set(), expanded:new Set(store.get('exp',['ERE'])), morePlayers:false,
+  data:null, demo:false, prevSeen:store.get('lastSeen',0)
+};
+const API = API_URL;
+
+/* eigen link: ?mijn=club:ASML,theme:rente */
+(function readLink(){
+  try{
+    const p=new URLSearchParams(location.search).get('mijn');
+    if(!p) return;
+    const keys=p.split(',').map(decodeURIComponent).filter(validKey);
+    if(!keys.length) return;
+    state.favs=keys; state.sel=new Set(keys);
+    const kws=keys.filter(k=>k.startsWith('kw:')).map(k=>k.slice(3));if(kws.length){state.kws=[...new Set([...state.kws,...kws])];store.set('kws',state.kws)}
+    store.set('favs',keys); store.set('sel',keys);
+  }catch(e){}
+})();
+function validKey(k){
+  const [t,v]=splitKey(k);
+  return (t==='club'&&v) || (t==='comp'&&COMP_BY[v]) || (t==='theme'&&THEME_BY[v]) || (t==='player'&&v) || (t==='country'&&COUNTRY_BY[v]) || (t==='kw'&&v.trim().length>1);
+}
+function splitKey(k){const i=k.indexOf(':');return [k.slice(0,i),k.slice(i+1)]}
+function labelOf(k){
+  const [t,v]=splitKey(k);
+  if(t==='comp') return COMP_BY[v]?.n||v;
+  if(t==='country') return COUNTRY_BY[v]?.n||v;
+  if(t==='kw') return '“'+v+'”';
+  if(t==='theme') return v==='rivals'?(myClub()?'Concurrenten '+myClub():'Concurrenten'):(THEME_BY[v]?.n||v);
+  return v;
+}
+const KIND = {club:'Bedrijf',comp:'Markt',theme:'Onderwerp',player:'Persoon',country:'Land',kw:'Eigen'};
+const clubCountry = c => CLUB_COUNTRY[c] || COMP_COUNTRY[CLUB_COMP[c]];
+
+/* =================== voorbeelddata (geen echt nieuws) =================== */
+function demoData(){return {generated_at:Date.now(),items:[]}}
+
+/* =================== matching =================== */
+const nGroups=i=>new Set(i.sources.map(s=>s.group)).size;
+function myClub(){
+  const pool=[...state.favs,...state.sel];
+  for(const k of pool){const [t,v]=splitKey(k);if(t==='club')return v}
+  return null;
+}
+function rivals(){
+  const c=myClub(); if(!c) return [];
+  const comp=COMP_BY[CLUB_COMP[c]]; if(!comp) return [];
+  const pool=(comp.top&&comp.top.includes(c))?comp.top:comp.clubs;
+  return pool.filter(x=>x!==c);
+}
+function itemKeys(item){
+  const k=new Set();
+  item.clubs.forEach(c=>k.add('club:'+c));
+  item.competitions.forEach(c=>k.add('comp:'+c));
+  item.players.forEach(p=>k.add('player:'+p));
+  (item.themes||[]).forEach(t=>k.add('theme:'+t));
+  if(item.type==='gerucht') k.add('theme:gerucht');
+  if(item.type==='cijfers') k.add('theme:cijfers');
+  if(item.type==='overname') k.add('theme:overname');
+  if(item.type==='rente') k.add('theme:rente');
+  item.clubs.forEach(c=>{const cc=clubCountry(c);if(cc)k.add('country:'+cc)});
+  item.competitions.forEach(c=>{if(COMP_COUNTRY[c])k.add('country:'+COMP_COUNTRY[c])});
+  (item.countries||[]).forEach(c=>k.add('country:'+c));
+  return k;
+}
+function kwMatch(item,v){
+  const hay=fold(item.title+' '+item.clubs.join(' ')+' '+item.players.join(' ')+' '+item.sources.map(s=>s.title||'').join(' '));
+  return fold(v).split(/\s+/).filter(Boolean).every(w=>hay.includes(w));
+}
+function matches(item){
+  if(state.onlyOk&&nGroups(item)<2) return false;
+  if(state.q){
+    const hay=(item.title+' '+item.clubs.join(' ')+' '+item.players.join(' ')+' '+item.sources.map(s=>s.name).join(' ')).toLowerCase();
+    if(!state.q.split(/\s+/).every(w=>hay.includes(w))) return false;
+  }
+  if(!state.sel.size) return true;
+  const ks=itemKeys(item);
+  for(const k of state.sel){if(ks.has(k))return true;if(k.startsWith('kw:')&&kwMatch(item,k.slice(3)))return true}
+  return false;
+}
+function counts(){
+  const c={}; if(!state.data) return c;
+  state.data.items.forEach(i=>{itemKeys(i).forEach(k=>c[k]=(c[k]||0)+1);state.kws.forEach(v=>{if(kwMatch(i,v))c['kw:'+v]=(c['kw:'+v]||0)+1})});
+  return c;
+}
+
+/* =================== helpers =================== */
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+const STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9z"/></svg>';
+const CHEV='<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l4 4-4 4"/></svg>';
+const isFav=k=>state.favs.includes(k);
+function sameSet(a,b){return a.length===b.size&&a.every(x=>b.has(x))}
+function saveSel(){store.set('sel',[...state.sel])}
+function toggleSel(k){state.sel.has(k)?state.sel.delete(k):state.sel.add(k);saveSel();renderAll()}
+function toggleFav(k){
+  if(isFav(k)) removeFav(k);
+  else{state.favs=[...state.favs,k];store.set('favs',state.favs);toast(labelOf(k)+' staat in je favorieten');renderAll()}
+}
+function removeFav(k){
+  const wasMine=state.favs.length&&sameSet(state.favs,state.sel);
+  const prevFavs=[...state.favs], prevSel=[...state.sel];
+  state.favs=state.favs.filter(x=>x!==k);store.set('favs',state.favs);
+  if(wasMine){state.sel.delete(k);saveSel()}
+  renderAll();
+  toast(labelOf(k)+' uit je favorieten',{label:'Ongedaan maken',fn:()=>{state.favs=prevFavs;state.sel=new Set(prevSel);store.set('favs',prevFavs);saveSel();renderAll()}});
+}
+let toastT;
+function toast(msg,action){
+  let t=document.querySelector('.toast');if(!t){t=el('div','toast');t.setAttribute('role','status');document.body.append(t)}
+  t.replaceChildren(document.createTextNode(msg));
+  if(action){const b=el('button',null,action.label);b.type='button';b.onclick=()=>{t.hidden=true;action.fn()};t.append(b)}
+  t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,action?4500:2200);
+}
+function optRow(k,label,count,opts={}){
+  const on=opts.fav?true:state.sel.has(k);
+  const li=el('li','opt'+(on?' on':''));
+  const b=el('button','pick');b.type='button';b.setAttribute('aria-pressed',on);
+  b.append(el('span','box2'),el('span','l',label));
+  if(opts.sub) b.append(el('span','sub',opts.sub));
+  if(count) b.append(el('small',null,String(count)));
+  if(opts.fav){b.title='Uit je favorieten halen';b.onclick=()=>removeFav(k);li.append(b);return li}
+  if(opts.remove){li.append(b);const r=el('button','rm','×');r.type='button';r.setAttribute('aria-label',label+' verwijderen');r.onclick=opts.remove;li.append(r);b.onclick=()=>toggleSel(k);const s2=el('button','star');s2.type='button';s2.innerHTML=STAR;s2.setAttribute('aria-pressed',isFav(k));s2.setAttribute('aria-label',(isFav(k)?'Haal ':'Zet ')+label+(isFav(k)?' uit je favorieten':' in je favorieten'));s2.onclick=()=>toggleFav(k);li.insertBefore(s2,r);return li}
+  b.onclick=()=>toggleSel(k);
+  li.append(b);
+  const s=el('button','star');s.type='button';s.innerHTML=STAR;s.setAttribute('aria-pressed',isFav(k));
+  s.setAttribute('aria-label',(isFav(k)?'Haal ':'Zet ')+label+(isFav(k)?' uit je favorieten':' in je favorieten'));
+  s.onclick=()=>toggleFav(k);li.append(s);
+  return li;
+}
+
+/* =================== zijbalk: vijf blokken =================== */
+const fold=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function allClubs(){const s=new Set(COMPS.flatMap(c=>c.clubs));if(state.data)state.data.items.forEach(i=>i.clubs.forEach(c=>s.add(c)));return [...s].sort((a,b)=>a.localeCompare(b,'nl'))}
+function allPlayers(){const s=new Set(PLAYERS);if(state.data)state.data.items.forEach(i=>i.players.forEach(p=>s.add(p)));return [...s].sort((a,b)=>a.localeCompare(b,'nl'))}
+const BLOCKS=[
+  {id:'comp',title:'Markten',ph:'Zoek markt of index',word:'markten',top:['comp:AEX','comp:US','comp:EU','comp:CRYPTO','comp:RENTE'],
+   all:()=>COMPS.map(c=>({k:'comp:'+c.k,l:c.n}))},
+  {id:'club',title:'Bedrijven',ph:'Zoek bedrijf',word:'bedrijven',top:['club:ASML','club:Shell','club:ING','club:Adyen','club:Ahold Delhaize'],
+   all:()=>allClubs().map(c=>({k:'club:'+c,l:c,sub:COMP_BY[CLUB_COMP[c]]?.n}))},
+  {id:'player',title:'Personen',ph:'Zoek persoon',word:'personen',top:['player:Christine Lagarde','player:Donald Trump','player:Christophe Fouquet','player:Jensen Huang','player:Elon Musk'],
+   all:()=>allPlayers().map(p=>({k:'player:'+p,l:p}))},
+  {id:'country',title:'Landen',ph:'Zoek land',word:'landen',top:['country:NL','country:US','country:DE','country:CN','country:GB'],
+   all:()=>COUNTRIES.map(c=>({k:'country:'+c.k,l:c.n}))},
+  {id:'theme',title:'Onderwerpen',ph:null,word:'onderwerpen',top:['theme:cijfers','theme:rente','theme:overname','theme:tech','theme:banken'],
+   all:()=>THEMES.map(t=>({k:'theme:'+t.k,l:labelOf('theme:'+t.k)}))},
+];
+const bq={}, ball={};
+let sideBuilt=false;
+function buildSide(){
+  const box=document.getElementById('sideScroll');
+  const fav=el('section','blk favs-blk');fav.id='blk-fav';box.append(fav);
+  BLOCKS.forEach(b=>{
+    const s=el('section','blk');s.id='blk-'+b.id;
+    const h=el('div','sec-h');h.append(el('h3',null,b.title));s.append(h);
+    if(b.ph){
+      const w=el('div','bsearch');
+      w.innerHTML='<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>';
+      const i=el('input');i.type='search';i.id='bq-'+b.id;i.placeholder=b.ph;i.setAttribute('aria-label',b.ph);i.autocomplete='off';
+      i.addEventListener('input',()=>{bq[b.id]=i.value.trim();renderBlock(b)});
+      i.addEventListener('keydown',e=>{if(e.key==='Escape'){i.value='';bq[b.id]='';renderBlock(b)}});
+      w.append(i);s.append(w);
+    }
+    s.append(el('ul','opts'));
+    const m=el('button','more');m.type='button';m.onclick=()=>{ball[b.id]=!ball[b.id];renderBlock(b)};s.append(m);
+    box.append(s);
+  });
+  const kw=el('section','blk');kw.id='blk-kw';
+  const kh=el('div','sec-h');kh.append(el('h3',null,'Voer zelf een onderwerp in'));kw.append(kh);
+  const form=el('form','kwform');
+  const ki=el('input');ki.id='kwInput';ki.type='text';ki.placeholder='Bijv. hypotheekrente';ki.setAttribute('aria-label','Eigen onderwerp');ki.autocomplete='off';ki.maxLength=60;
+  const kb=el('button',null,'Toevoegen');kb.type='submit';
+  form.append(ki,kb);
+  form.addEventListener('submit',e=>{e.preventDefault();addKw(ki.value);ki.value=''});
+  kw.append(form,el('ul','opts'));
+  const hint=el('p','kwhint','Je ziet alle berichten waarin deze woorden voorkomen.');kw.append(hint);
+  box.append(kw);
+  sideBuilt=true;
+}
+function renderFavs(c){
+  const s=document.getElementById('blk-fav');
+  if(!state.favs.length){s.hidden=true;s.replaceChildren();return}
+  const h=el('div','sec-h');h.append(el('h3',null,'Mijn favorieten'));
+  const go=el('button',null,'Toon mijn feed');go.type='button';go.onclick=showMine;h.append(go);
+  const ul=el('ul','opts');state.favs.forEach(k=>ul.append(optRow(k,labelOf(k),c[k],{fav:true})));
+  s.replaceChildren(h,ul);s.hidden=false;
+}
+function renderBlock(b,c=counts()){
+  const s=document.getElementById('blk-'+b.id);const ul=s.querySelector('ul');const more=s.querySelector('.more');
+  const all=b.all();const byK=Object.fromEntries(all.map(o=>[o.k,o]));
+  const q=fold(bq[b.id]||'');let list;
+  if(q){
+    list=all.filter(o=>fold(o.l).includes(q)||(o.sub&&fold(o.sub).includes(q)))
+      .sort((x,y)=>(fold(x.l).startsWith(q)?0:1)-(fold(y.l).startsWith(q)?0:1)||(c[y.k]||0)-(c[x.k]||0));
+    if(!ball[b.id]) list=list.slice(0,8);
+  }else if(ball[b.id]){
+    list=all;
+  }else{
+    const prefix=b.id+':';
+    const chosen=[...state.sel].filter(k=>k.startsWith(prefix)&&!b.top.includes(k));
+    list=[...chosen,...b.top].map(k=>byK[k]||{k,l:labelOf(k)});
+  }
+  const frag=document.createDocumentFragment();
+  if(!list.length){const li=el('li','noresult','Niets gevonden voor "'+bq[b.id]+'"');frag.append(li)}
+  list.forEach(o=>frag.append(optRow(o.k,o.l,c[o.k],{sub:(q||ball[b.id])?o.sub:null})));
+  ul.replaceChildren(frag);
+  const total=q?all.filter(o=>fold(o.l).includes(q)||(o.sub&&fold(o.sub).includes(q))).length:all.length;
+  if(q&&total<=8){more.hidden=true}
+  else if(!q&&all.length<=5){more.hidden=true}
+  else{more.hidden=false;more.textContent=ball[b.id]?'Minder tonen':(q?'Alle '+total+' resultaten':'Alle '+all.length+' '+b.word)}
+}
+function addKw(raw){
+  const v=raw.trim().replace(/\s+/g,' ');
+  if(v.length<2){toast('Typ minstens twee tekens');return}
+  const k='kw:'+v;
+  if(!state.kws.some(x=>x.toLowerCase()===v.toLowerCase())){state.kws=[...state.kws,v];store.set('kws',state.kws)}
+  state.sel.add(k);saveSel();renderAll();toast('Filter op '+labelOf(k)+' toegevoegd');
+}
+function removeKw(v){
+  const k='kw:'+v;state.kws=state.kws.filter(x=>x!==v);store.set('kws',state.kws);
+  state.sel.delete(k);saveSel();state.favs=state.favs.filter(x=>x!==k);store.set('favs',state.favs);renderAll();
+}
+function renderKw(c){
+  const s=document.getElementById('blk-kw');const ul=s.querySelector('ul');
+  ul.replaceChildren(...state.kws.map(v=>optRow('kw:'+v,v,c['kw:'+v],{remove:()=>removeKw(v)})));
+  s.querySelector('.kwhint').hidden=state.kws.length>0;
+}
+function renderSide(){
+  if(!sideBuilt) buildSide();
+  const c=counts();renderFavs(c);BLOCKS.forEach(b=>renderBlock(b,c));renderKw(c);
+}
+
+/* =================== mijn feed =================== */
+function showMine(){
+  if(!state.favs.length){openPop();return}
+  state.sel=new Set(state.favs);saveSel();closeSide();renderAll();
+  window.scrollTo({top:document.querySelector('.bar').offsetTop,behavior:'smooth'});
+}
+function myLink(){
+  const base=(location.protocol.startsWith('http')?location.origin+location.pathname:'https://definancielemarkt.pages.dev/');
+  return base+'?mijn='+state.favs.map(encodeURIComponent).join(',');
+}
+function openPop(){
+  const p=document.getElementById('pop');renderPop();p.hidden=false;
+  document.getElementById('mineMenu').setAttribute('aria-expanded','true');
+}
+function closePop(){document.getElementById('pop').hidden=true;document.getElementById('mineMenu').setAttribute('aria-expanded','false')}
+function renderPop(){
+  const p=document.getElementById('pop');const f=document.createDocumentFragment();
+  f.append(el('h3',null,'Mijn feed'));
+  if(!state.favs.length){
+    f.append(el('p',null,'Kies een bedrijf om te beginnen. Daarna kun je links bij elk bedrijf, elke markt, persoon of elk onderwerp een ster zetten.'));
+    const q=el('div','quick');
+    QUICK.forEach(cl=>{const b=el('button',null,cl);b.type='button';b.onclick=()=>{toggleFav('club:'+cl);showMine();renderPop()};q.append(b)});
+    f.append(q);
+  }else{
+    f.append(el('p',null,'Dit zie je als je op Mijn feed klikt. Zet in de filterkolom een ster om iets toe te voegen.'));
+    const fv=el('div','favs');
+    state.favs.forEach(k=>{const [t]=splitKey(k);const c=el('span','tagchip');c.append(el('span','k',KIND[t]),el('span',null,labelOf(k)));
+      const x=el('button',null,'×');x.type='button';x.setAttribute('aria-label',labelOf(k)+' verwijderen');x.onclick=()=>{toggleFav(k);renderPop()};c.append(x);fv.append(c)});
+    f.append(fv);
+    const lb=el('div','linkbox');const inp=el('input');inp.id='myLink';inp.readOnly=true;inp.value=myLink();inp.setAttribute('aria-label','Jouw eigen link');
+    const cp=el('button','btn','Kopieer');cp.type='button';
+    cp.onclick=()=>{const done=()=>toast('Link gekopieerd');
+      try{navigator.clipboard.writeText(inp.value).then(done,()=>{inp.select();toast('Selecteer en kopieer de link')})}catch(e){inp.select();toast('Selecteer en kopieer de link')}};
+    lb.append(inp,cp);
+    f.append(el('p',null,'Jouw eigen link opent deze feed op elk apparaat:'),lb);
+    const a=el('div','actions');const go=el('button','btn primary','Toon mijn feed');go.type='button';go.onclick=()=>{closePop();showMine()};a.append(go);f.append(a);
+  }
+  p.replaceChildren(f);
+}
+
+/* =================== feed =================== */
+const pad=n=>String(n).padStart(2,'0');
+const hm=d=>pad(d.getHours())+':'+pad(d.getMinutes());
+function dayLabel(ts){
+  const d=new Date(ts),n=new Date(),y=new Date();y.setDate(n.getDate()-1);
+  if(d.toDateString()===n.toDateString()) return 'Vandaag';
+  if(d.toDateString()===y.toDateString()) return 'Gisteren';
+  return d.toLocaleDateString('nl-NL',{weekday:'long',day:'numeric',month:'long'});
+}
+function renderHead(items){
+  const mine=state.favs.length&&sameSet(state.favs,state.sel);
+  const labels=[...state.sel].map(labelOf);
+  document.getElementById('feedTitle').textContent=mine?'Mijn feed':(labels.length?(labels.length>2?'Jouw selectie':labels.join(' + ')):'Laatste nieuws');
+  const ok=items.filter(i=>nGroups(i)>=2).length;
+  document.getElementById('summary').innerHTML='<b>'+items.length+'</b> berichten · <b>'+ok+'</b> bevestigd';
+  const act=document.getElementById('active');
+  if(!state.sel.size){act.hidden=true;return}
+  const f=document.createDocumentFragment();
+  [...state.sel].forEach(k=>{const [t]=splitKey(k);const c=el('span','tagchip');c.append(el('span','k',KIND[t]),el('span',null,labelOf(k)));
+    const x=el('button',null,'×');x.type='button';x.setAttribute('aria-label',labelOf(k)+' weghalen');x.onclick=()=>toggleSel(k);c.append(x);f.append(c)});
+  const clr=el('button','linkbtn','Wis filters');clr.type='button';clr.onclick=()=>{state.sel.clear();saveSel();renderAll()};f.append(clr);
+  if(!mine){
+    const sv=el('button','savefav');sv.type='button';sv.innerHTML=STAR+'<span>'+(state.favs.length?'Maak dit mijn feed':'Bewaar als mijn feed')+'</span>';
+    sv.onclick=()=>{state.favs=[...state.sel];store.set('favs',state.favs);toast('Opgeslagen als Mijn feed');renderAll()};f.append(sv);
+  }
+  act.replaceChildren(f);act.hidden=false;
+}
+function renderFeed(){
+  const ol=document.getElementById('feed');
+  if(!state.data){ol.replaceChildren(el('li','empty','Nieuws laden…'));return}
+  const items=state.data.items.filter(matches).sort((a,b)=>b.ts-a.ts);
+  renderHead(items);
+  if(!items.length){const li=el('li','empty');li.append(el('b',null,'Nog geen berichten voor deze selectie'),document.createTextNode('Voeg een bedrijf of markt toe, of zet de weergave op Alles.'));ol.replaceChildren(li);return}
+  const frag=document.createDocumentFragment();let lastDay='';
+  items.forEach(item=>{
+    const dl=dayLabel(item.ts);if(dl!==lastDay){frag.append(el('li','day',dl));lastDay=dl}
+    const isNew=state.prevSeen&&item.ts>state.prevSeen;
+    const li=el('li','row'+(isNew?' is-new':''));
+    li.style.setProperty('--tc','var('+(TYPE_COLOR[item.type]||'--t-overig')+')');
+    li.append(el('div','time',hm(new Date(item.ts))));
+    const body=el('div','body');const h3=el('h3','title');
+    if(item.sources[0]&&item.sources[0].url){const ta=el('a','tlink',item.title);ta.href=item.sources[0].url;ta.target='_blank';ta.rel='noopener';h3.append(ta)}else h3.textContent=item.title;
+    body.append(h3);
+    const meta=el('div','meta');meta.append(el('span','type',TYPE_LABEL[item.type]||'Nieuws'));
+    const ents=[...item.clubs.map(c=>'club:'+c),...item.competitions.map(c=>'comp:'+c),...item.players.map(p=>'player:'+p)];
+    ents.forEach((k,i)=>{const b=el('button','ent',labelOf(k));b.type='button';b.title='Filter op '+labelOf(k);
+      b.onclick=()=>{if(!state.sel.has(k)){state.sel.add(k);saveSel();renderAll();toast('Filter: '+labelOf(k))}};meta.append(b)});
+    const open=state.open.has(item.id);
+    const sb=el('button','srcbtn',item.sources.length+(item.sources.length===1?' bron':' bronnen'));sb.type='button';sb.setAttribute('aria-expanded',open);
+    sb.onclick=()=>{open?state.open.delete(item.id):state.open.add(item.id);renderFeed()};meta.append(sb);
+    body.append(meta);
+    if(open){const ul=el('ul','sources');item.sources.forEach(s=>{const r=el('li');const a=el('a',null,s.name);a.href=s.url;a.target='_blank';a.rel='noopener';r.append(a);if(s.title)r.append(el('span',null,' · '+s.title));ul.append(r)});body.append(ul)}
+    li.append(body);
+    const n=nGroups(item);
+    li.append(el('span','status '+(n>=2?'ok':'single'),n>=2?'✓ Bevestigd':(item.type==='gerucht'?'Gerucht':'1 bron')));
+    frag.append(li);
+  });
+  ol.replaceChildren(frag);
+}
+function renderBar(){
+  document.getElementById('vAll').setAttribute('aria-pressed',!state.onlyOk);
+  document.getElementById('vOk').setAttribute('aria-pressed',state.onlyOk);
+  const mine=state.favs.length>0&&sameSet(state.favs,state.sel);
+  document.getElementById('mineBtn').setAttribute('aria-pressed',mine);
+  document.getElementById('favN').textContent=state.favs.length;
+  const fc=document.getElementById('fCount');fc.textContent=state.sel.size;fc.hidden=!state.sel.size;
+}
+function renderAll(){renderBar();renderSide();renderFeed();if(!document.getElementById('pop').hidden)renderPop()}
+
+/* =================== zijbalk mobiel =================== */
+function openSide(){document.getElementById('side').classList.add('open');document.getElementById('scrim').hidden=false}
+function closeSide(){document.getElementById('side').classList.remove('open');document.getElementById('scrim').hidden=true}
+
+/* =================== klok en laden =================== */
+function nextRound(){const d=new Date();d.setSeconds(0,0);d.setMinutes(d.getMinutes()<30?30:60);return d}
+function renderClock(){
+  document.getElementById('bUpd').textContent=state.data?hm(new Date(state.data.generated_at)):'--:--';
+  document.getElementById('bNext').textContent=hm(nextRound());
+}
+async function load(){
+  let data=null;
+  try{const r=await fetch(API,{cache:'no-store'});if(r.ok&&(r.headers.get('content-type')||'').includes('json'))data=await r.json()}catch(e){}
+  if(!data){try{const r=await fetch('demo.json',{cache:'no-store'});if(r.ok)data=await r.json()}catch(e){}if(data)state.snapshot=true}
+  if(!data){data=demoData();state.demo=true;if(!state.prevSeen)state.prevSeen=Date.now()-30*60000}
+  state.data=data;
+  const a=document.getElementById('aboutTxt');
+  if(state.snapshot&&!a.querySelector('.demo')){const d=new Date(data.generated_at);a.insertAdjacentHTML('beforeend',' <span class="demo">Deze demo toont een momentopname van echte berichten van '+d.toLocaleDateString('nl-NL',{day:'numeric',month:'long'})+' om '+hm(d)+' uit NOS en NU.nl. De live versie ververst elk half uur met alle bronnen.</span>')}
+  else if(state.demo&&!a.querySelector('.demo'))a.insertAdjacentHTML('beforeend',' <span class="demo">Deze versie toont voorbeeldberichten.</span>');
+  renderClock();renderAll();
+}
+
+document.getElementById('q').addEventListener('input',e=>{state.q=e.target.value.trim().toLowerCase();renderFeed()});
+document.getElementById('vAll').onclick=()=>{state.onlyOk=false;store.set('onlyOk',false);renderAll()};
+document.getElementById('vOk').onclick=()=>{state.onlyOk=true;store.set('onlyOk',true);renderAll()};
+document.getElementById('mineBtn').onclick=()=>{
+  if(state.favs.length&&sameSet(state.favs,state.sel)){state.sel.clear();saveSel();renderAll()}else showMine();
+};
+document.getElementById('mineMenu').onclick=e=>{e.stopPropagation();document.getElementById('pop').hidden?openPop():closePop()};
+document.getElementById('pop').addEventListener('click',e=>e.stopPropagation());
+document.addEventListener('click',e=>{
+  if(!document.getElementById('pop').hidden&&!e.target.closest('.mine-wrap'))closePop();
+});
+document.getElementById('home').addEventListener('click',e=>{
+  e.preventDefault();
+  state.sel.clear();saveSel();state.onlyOk=false;store.set('onlyOk',false);state.q='';document.getElementById('q').value='';
+  Object.keys(bq).forEach(k=>{bq[k]='';const i=document.getElementById('bq-'+k);if(i)i.value=''});
+  try{if(location.protocol.startsWith('http'))history.replaceState(null,'','/')}catch(err){}
+  closePop();closeSide();renderAll();window.scrollTo({top:0,behavior:'smooth'});
+});
+document.getElementById('openFilters').onclick=openSide;
+document.getElementById('closeFilters').onclick=closeSide;
+document.getElementById('scrim').onclick=closeSide;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePop();closeSide()}});
+
+renderAll();load();
+store.set('lastSeen',Date.now());
+setInterval(()=>{if(!state.demo)load();else renderClock()},5*60000);
+</script>
+</body>
+</html>

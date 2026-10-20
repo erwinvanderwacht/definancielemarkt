@@ -1,0 +1,590 @@
+{
+ "generated_at": 1792482600000,
+ "snapshot": true,
+ "items": [
+  {
+   "id": "f0",
+   "ts": 1792480980000,
+   "title": "Videoland mag Viaplay overnemen van ACM",
+   "type": "overname",
+   "clubs": [
+    "Videoland",
+    "Viaplay"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [],
+   "countries": [
+    "NL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413742/videoland-krijgt-goedkeuring-van-acm-om-viaplay-over-te-nemen.html",
+     "title": "Videoland krijgt goedkeuring van ACM om Viaplay over te nemen"
+    }
+   ]
+  },
+  {
+   "id": "f1",
+   "ts": 1792479540000,
+   "title": "Trump trekt miljarden uit voor boeren vanwege hoge dieselprijs",
+   "type": "beleid",
+   "clubs": [
+    "Diesel"
+   ],
+   "competitions": [],
+   "players": [
+    "Donald Trump"
+   ],
+   "themes": [
+    "energie"
+   ],
+   "countries": [
+    "US"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413734/trump-trekt-miljarden-uit-om-boeren-te-compenseren-voor-hoge-dieselprijs.html",
+     "title": "Trump trekt miljarden uit om boeren te compenseren voor hoge dieselprijs"
+    }
+   ]
+  },
+  {
+   "id": "f2",
+   "ts": 1792478160000,
+   "title": "PostNL vraagt opnieuw om extra geld voor postbezorging",
+   "type": "bedrijf",
+   "clubs": [
+    "PostNL"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "mobiliteit"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635911",
+     "title": "PostNL vraagt opnieuw om extra geld voor postbezorging"
+    }
+   ]
+  },
+  {
+   "id": "f3",
+   "ts": 1792474920000,
+   "title": "Bedrijven investeren vooral meer in machines, defensie en computers",
+   "type": "macro",
+   "clubs": [],
+   "competitions": [],
+   "players": [],
+   "themes": [],
+   "countries": [
+    "NL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413731/bedrijven-investeren-vooral-meer-in-machines-defensiemateriaal-en-computers.html",
+     "title": "Bedrijven investeren vooral meer in machines, defensiemateriaal en computers"
+    }
+   ]
+  },
+  {
+   "id": "f4",
+   "ts": 1792473840000,
+   "title": "Thuisbezorgd en Uber Eats tonen extra kosten voortaan duidelijker",
+   "type": "beleid",
+   "clubs": [
+    "Thuisbezorgd",
+    "Uber"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "retail"
+   ],
+   "countries": [
+    "NL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413729/thuisbezorgd-en-uber-eats-informeren-voortaan-duidelijk-over-extra-kosten.html",
+     "title": "Thuisbezorgd en Uber Eats informeren voortaan duidelijk over extra kosten"
+    }
+   ]
+  },
+  {
+   "id": "f5",
+   "ts": 1792439760000,
+   "title": "Polen groeikampioen van Europa, overname Zabka zegt veel",
+   "type": "macro",
+   "clubs": [
+    "Zabka"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "overname",
+    "retail"
+   ],
+   "countries": [
+    "PL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635882",
+     "title": "Polen als groeikampioen van Europa: waarom overname van buurtsuper Zabka veel zegt"
+    }
+   ]
+  },
+  {
+   "id": "f6",
+   "ts": 1792437720000,
+   "title": "Gazprom mag van rechter bij ING blijven bankieren",
+   "type": "beleid",
+   "clubs": [
+    "ING",
+    "Gazprom"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "banken"
+   ],
+   "countries": [
+    "NL",
+    "RU"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635880",
+     "title": "Gazprom mag van rechter bij ING blijven bankieren"
+    }
+   ]
+  },
+  {
+   "id": "f7",
+   "ts": 1792427640000,
+   "title": "Jumbo roept pulled chicken terug",
+   "type": "incident",
+   "clubs": [
+    "Jumbo"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "retail"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413693/jumbo-roept-pulled-chicken-terug-omdat-die-mogelijk-rauwe-kip-bevat.html",
+     "title": "Jumbo roept pulled chicken terug omdat die mogelijk rauwe kip bevat"
+    }
+   ]
+  },
+  {
+   "id": "f8",
+   "ts": 1792423320000,
+   "title": "Moederbedrijf Albert Heijn doet aangifte na cyberaanval",
+   "type": "incident",
+   "clubs": [
+    "Ahold Delhaize",
+    "Albert Heijn"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "cyber",
+    "retail"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635852",
+     "title": "Moederbedrijf Albert Heijn doet na ruim een week aangifte van cyberaanval"
+    },
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413688/moederbedrijf-albert-heijn-doet-aangifte-na-cyberincident-kwaadwillende-actie.html",
+     "title": "Moederbedrijf Albert Heijn doet aangifte na cyberincident: 'Kwaadwillende actie'"
+    }
+   ]
+  },
+  {
+   "id": "f9",
+   "ts": 1792421760000,
+   "title": "Chinese economie groeit harder door export van AI",
+   "type": "macro",
+   "clubs": [],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "tech"
+   ],
+   "countries": [
+    "CN"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413682/chinese-economie-groeit-weer-harder-door-sterke-ai-export.html",
+     "title": "Chinese economie groeit weer harder door sterke AI-export"
+    }
+   ]
+  },
+  {
+   "id": "f10",
+   "ts": 1792420500000,
+   "title": "Albert Heijn bezorgt voorlopig niet: stappen klanten over?",
+   "type": "incident",
+   "clubs": [
+    "Albert Heijn",
+    "Ahold Delhaize"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "cyber",
+    "retail"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635847",
+     "title": "Albert Heijn bezorgt voorlopig niet, stappen klanten nu massaal over?"
+    }
+   ]
+  },
+  {
+   "id": "f11",
+   "ts": 1792417800000,
+   "title": "Grolsch-bezoekers die onwel werden kregen natronloog binnen",
+   "type": "incident",
+   "clubs": [
+    "Grolsch"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635785",
+     "title": "Bezoekers Grolsch die onwel werden, kregen inderdaad natronloog binnen"
+    }
+   ]
+  },
+  {
+   "id": "f12",
+   "ts": 1792416540000,
+   "title": "Anthropic steekt miljarden in fonds voor maatschappelijk belang",
+   "type": "bedrijf",
+   "clubs": [
+    "Anthropic"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "tech"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413671/ai-ontwikkelaar-anthropic-steekt-miljarden-in-fonds-voor-maatschappelijk-belang.html",
+     "title": "AI-ontwikkelaar Anthropic steekt miljarden in fonds voor maatschappelijk belang"
+    }
+   ]
+  },
+  {
+   "id": "f13",
+   "ts": 1792413180000,
+   "title": "Duitse industrie verliest ruim half miljoen banen",
+   "type": "macro",
+   "clubs": [],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "werk"
+   ],
+   "countries": [
+    "DE"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413659/forse-krimp-kost-duitse-industrie-ruim-half-miljoen-banen.html",
+     "title": "Forse krimp kost Duitse industrie ruim half miljoen banen"
+    }
+   ]
+  },
+  {
+   "id": "f14",
+   "ts": 1792411380000,
+   "title": "Greenwheels en Check gaan samenwerken",
+   "type": "bedrijf",
+   "clubs": [
+    "Greenwheels"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "mobiliteit"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413658/greenwheels-en-check-gaan-samenwerken-en-willen-aantal-voertuigen-verdubbelen.html",
+     "title": "Greenwheels en Check gaan samenwerken en willen aantal voertuigen verdubbelen"
+    }
+   ]
+  },
+  {
+   "id": "f15",
+   "ts": 1792407660000,
+   "title": "Topman Lindt stapt op na tegenvallende verkopen",
+   "type": "bedrijf",
+   "clubs": [
+    "Lindt"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "ceo",
+    "cijfers"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413645/topman-chocolademerk-lindt-stapt-op-wegens-tegenvallende-verkopen.html",
+     "title": "Topman chocolademerk Lindt stapt op wegens tegenvallende verkopen"
+    }
+   ]
+  },
+  {
+   "id": "f16",
+   "ts": 1792404900000,
+   "title": "Donderdag opnieuw staking in het streekvervoer",
+   "type": "incident",
+   "clubs": [],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "werk",
+    "mobiliteit"
+   ],
+   "countries": [
+    "NL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635576",
+     "title": "Donderdag opnieuw minder openbaar vervoer door staking streekvervoer"
+    },
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413638/opnieuw-staking-in-streekvervoer-donderdag-minder-bussen-en-treinen.html",
+     "title": "Opnieuw staking in streekvervoer: donderdag minder bussen en treinen"
+    }
+   ]
+  },
+  {
+   "id": "f17",
+   "ts": 1792399620000,
+   "title": "Paspoortcontrole Schiphol weer normaal na storing",
+   "type": "incident",
+   "clubs": [
+    "Schiphol"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "mobiliteit"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413622/paspoortcontrole-schiphol-loopt-weer-soepel-na-storing.html",
+     "title": "Paspoortcontrole Schiphol loopt weer soepel na storing"
+    }
+   ]
+  },
+  {
+   "id": "f18",
+   "ts": 1792394820000,
+   "title": "Franse winkeliers vrezen miljoenenschade na plunderingen",
+   "type": "macro",
+   "clubs": [],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "retail"
+   ],
+   "countries": [
+    "FR"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NU.nl",
+     "group": "nu",
+     "url": "https://www.nu.nl/economie/6413604/franse-winkeliers-vrezen-miljoenenschade-na-plunderingen-en-vernielingen.html",
+     "title": "Franse winkeliers vrezen miljoenenschade na plunderingen en vernielingen"
+    }
+   ]
+  },
+  {
+   "id": "f19",
+   "ts": 1792228980000,
+   "title": "AH moest hack melden door nieuwe cyberwet",
+   "type": "beleid",
+   "clubs": [
+    "Albert Heijn",
+    "Ahold Delhaize"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "cyber"
+   ],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635327",
+     "title": "AH moest hack melden vanwege nieuwe cyberwet: 'Verantwoordelijkheid reikt verder'"
+    }
+   ]
+  },
+  {
+   "id": "f20",
+   "ts": 1792226340000,
+   "title": "Grotere biljetten uit de geldautomaat lijken aan te slaan",
+   "type": "bedrijf",
+   "clubs": [],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "banken"
+   ],
+   "countries": [
+    "NL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635323",
+     "title": "'Heeft u terug van 100?' Grotere biljetten in geldautomaat lijken aan te slaan"
+    }
+   ]
+  },
+  {
+   "id": "f21",
+   "ts": 1792161300000,
+   "title": "Amerikaanse sancties tegen Strafhof zetten ABN Amro onder druk",
+   "type": "beleid",
+   "clubs": [
+    "ABN Amro"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [
+    "banken"
+   ],
+   "countries": [
+    "US",
+    "NL"
+   ],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635241",
+     "title": "Sancties VS tegen Strafhof brengen ABN Amro nu al in lastig parket"
+    }
+   ]
+  },
+  {
+   "id": "f22",
+   "ts": 1792082340000,
+   "title": "Accell verkoopt fietsmerk Sparta",
+   "type": "overname",
+   "clubs": [
+    "Accell",
+    "Sparta"
+   ],
+   "competitions": [],
+   "players": [],
+   "themes": [],
+   "countries": [],
+   "nl": false,
+   "sources": [
+    {
+     "name": "NOS",
+     "group": "nos",
+     "url": "https://nos.nl/l/2635118",
+     "title": "Nog een Accell-merk verkocht, Sparta naar Chinees-Nederlandse eigenaar"
+    }
+   ]
+  }
+ ]
+}
